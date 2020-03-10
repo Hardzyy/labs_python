@@ -35,16 +35,17 @@ def sqrtSum(left, right):
     for i in range(nArray):
         n = int(i / sqrt_len)
         b[n] += a[i]
-    block_left = left/sqrt_len
-    block_right = right/sqrt_len
+    block_left = int(left/sqrt_len)
+    block_right = int(right/sqrt_len)
     if block_left == block_right:
         for i in range(left, right+1):
             sum += a[i]
-    else: for i in range(left, (block_right + 1)*(sqrt_len - 1)):
-              sum += a[i]
-          for i in range(block_left+1, block_right-1)
-              sum += b[i]
-          for i in range(block_right, right):
-              sum += a[i]
+    else: 
+        for i in range(left, (block_right + 1)*(sqrt_len - 1)):
+            sum += a[i]
+        for i in range(block_left+1, block_right-1):
+            sum += b[i]
+        for i in range(block_right, right):
+            sum += a[i]
     return sum
-print(sqrtSum(1,2))
+print(sqrtSum(0,4))
