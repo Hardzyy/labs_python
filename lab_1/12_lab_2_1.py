@@ -9,16 +9,11 @@ for i in range(0, nArray):
     a.append(i)
 print(a)
 
-l = int(input())
-r = int(input())
-
 def elementSum(index1, index2):
     sum = 0
     for i in range(index1, index2):
         sum += a[i]
     return sum
-
-print("sum:", elementSum(l,r))
 
 # n = int(input())
 # for i in range(1):
@@ -47,7 +42,7 @@ def sqrtSum(left, right):
     block_right = int(right/sqrt_len)
     print("block right:", block_right)
     if block_left == block_right:
-        for i in range(left, right+1):
+        for i in range(left, right):
             sum += a[i]
     else: 
         for i in range(left, (sqrt_len - block_left) * (block_right) ):
@@ -57,4 +52,11 @@ def sqrtSum(left, right):
         for i in range(block_right*sqrt_len, right):
             sum += a[i]
     return sum
-print(sqrtSum(l,r))
+while 1:
+    left = int(input())
+    r = int(input())
+    print("elementSum:", elementSum(left,r))
+    print("sqrtSum:", sqrtSum(left,r))
+    if sqrtSum(left,r)==elementSum(left,r):
+       print(sqrtSum(left,r)==elementSum(left,r))    
+    else: break
