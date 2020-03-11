@@ -21,7 +21,7 @@ def elementSum(index1, index2):
     return sum
 
 print("Enter array size")
-nArray = int(input())
+nArray = 10000
 start_time = time.time()
 a = []
 for i in range(0, nArray):
@@ -50,6 +50,20 @@ for i in range(10000):
         print("good")
     else: break 
     print("Step:", i)
+
+
+# for i in range(10000):
+#     rightBorder = random.randint(0,nArray-1)
+#     leftBorder = random.randint(0,rightBorder)
+#     print("sqrtSum:", sqrtSum(leftBorder,rightBorder))
+
+# for i in range(10000):
+#     rightBorder = random.randint(0,nArray-1)
+#     leftBorder = random.randint(0,rightBorder)
+#     print("sqrtSum:", elementSum(leftBorder,rightBorder))
+
+
+
 print("Time",time.time()-start_time,"secs")
 
 
