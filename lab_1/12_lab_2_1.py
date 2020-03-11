@@ -4,18 +4,14 @@ import math
 
 def sqrtSum(left, right):
     sum = 0
-    block_left = int(left/sqrt_len)
-    block_right = int(right/sqrt_len)
-    if block_left == block_right:
-        for i in range(left, right):
+    i = left
+    while i < right:
+        if  (i % sqrt_len == 0) and (i + sqrt_len - 1 < right):
+            sum += b[int(i / sqrt_len)]
+            i += sqrt_len
+        else: 
             sum += a[i]
-    else: 
-        for i in range(left, (block_left + 1)*sqrt_len-1 ):
-            sum += a[i]
-        for i in range(block_left+1, block_right-1):
-            sum += b[i]
-        for i in range(block_right*sqrt_len, right):
-            sum += a[i]
+            i += 1  
     return sum
 
 def elementSum(index1, index2):
@@ -43,7 +39,7 @@ for i in range(nArray):
     b[n] += a[i]
 print(b)
 
-for i in range(0,10):
+for i in range(10000):
     rightBorder = random.randint(0,nArray-1)
     leftBorder = random.randint(0,rightBorder)
     print("leftBorder:", leftBorder)
