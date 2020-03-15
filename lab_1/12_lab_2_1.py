@@ -24,27 +24,48 @@ print("Enter array:")
 a = []
 truth = 1
 while truth:
-	c = input()
-	if c == "stop" or c == "STOP":
-		truth = 0
-	else: 
-		try:
-			a.append(int(c))
-		except:
-			print("Sorry, but you enter wrong one, plese try again or enter STOP")
+    c = input()
+    if c == "stop" or c == "STOP":
+        truth = 0
+    else: 
+        try:
+            a.append(int(c))
+        except:
+            print("Sorry, but you enter wrong one, plese try again or enter STOP")
 
-print('Your array:', a)
+print('Well done! Your array:', a)
 
+sqrt_len = math.ceil(len(a) ** 0.5)
 b = []
-sqrt_len = math.ceil(len(a)**0.5)
-print(sqrt_len)
-for i in range(0,math.ceil(len(a)/sqrt_len)):
+for i in range(0,math.ceil(len(a) / sqrt_len)):
     b.append(0)
 
 for i in range(len(a)):
     n = int(i / sqrt_len)
     b[n] += a[i]
-print(b)
+
+print("Now enter left and right borders! And remember: left < right !")
+print("To stop print STOP.")
+truth = 1
+while truth:
+    print("Left:")
+    left = input()
+    if left == 'stop' or left == "STOP":
+        break
+    print("Right:")
+    right = input()
+    if right == 'stop' or right == 'STOP':
+        break
+    try:
+        left1 = int(left)
+        right1 = int(right)
+        if right1 >= left1 and left1 >= 0:
+            print("Sum of elements from ",left1," till ", right1, "is equal", sqrtSum(left1,right1))
+        else: print("Borders are wrong! Please try again!")
+    except:
+            print("Sorry, but you enter wrong one, plese try again or enter STOP")
+print('Work is over, thanks for watching :)')
+
 
 # for i in range(10000):
 #     rightBorder = random.randint(0,len(a)-1)
