@@ -10,9 +10,10 @@
 #   структура файла проста: 
 #   1-ая сторока - массив
 #   остальные - границы
-#   также предусмотрен контроль ввода границ 
+#   также предусмотрен контроль ввода границ
 import math
 import argparse
+
 
 def sqrtSum(a, left, right):
     sqrt_len = math.ceil(len(a) ** 0.5)
@@ -27,13 +28,14 @@ def sqrtSum(a, left, right):
     sum = 0
     i = left
     while i < right:
-        if  (i % sqrt_len == 0) and (i + sqrt_len - 1 < right):
+        if (i % sqrt_len == 0) and (i + sqrt_len - 1 < right):
             sum += help_array[int(i / sqrt_len)]
             i += sqrt_len
-        else: 
+        else:
             sum += a[i]
-            i += 1  
+            i += 1
     return sum
+
 
 def without_file():
     print('To stop array print STOP.')
@@ -44,11 +46,12 @@ def without_file():
         c = input()
         if c == "stop" or c == "STOP":
             truth = 0
-        else: 
+        else:
             try:
                 a.append(int(c))
             except:
-                print("Sorry, but you enter wrong one, plese try again or enter STOP")
+                print("Sorry, but you enter wrong one,"
+                      "plese try again or enter STOP")
 
     print('Well done! Your array:', a)
     print("Now enter left and right borders! And remember: left < right !")
@@ -67,10 +70,14 @@ def without_file():
             left1 = int(left)
             right1 = int(right)
             if right1 >= left1 and left1 >= 0:
-                print("Sum of elements from ",left1," till ", right1, "is equal", sqrtSum(a,left1,right1))
-            else: print("Borders are wrong! Please try again!")
+                print("Sum of elements from ", left1, " till ",
+                      right1, "is equal", sqrtSum(a, left1, right1))
+            else:
+                print("Borders are wrong! Please try again!")
         except:
-                print("Sorry, but you enter wrong one, plese try again or enter STOP")
+                print("Sorry, but you enter wrong one,"
+                      "plese try again or enter STOP")
+
 
 def with_file():
     file = open(name_file, 'r')
@@ -79,22 +86,23 @@ def with_file():
     file = open(name_file, 'r')
     a = [int(elem) for elem in file.readline().strip().split(' ')]
     print(a)
-    for i in range (str_amoung):
+    for i in range(str_amoung):
         b = [int(elem) for elem in file.readline().strip().split(' ')]
         print(b)
         if len(a) >= b[1] >= b[0] >= 0:
-            print("Elemet sum:", sqrtSum(a,b[0],b[1]))
-        else: print("Sorry but it's wrong!")    
+            print("Elemet sum:", sqrtSum(a, b[0], b[1]))
+        else:
+            print("Sorry but it's wrong!")
     file.close()
 
-parser = argparse.ArgumentParser(description = 'It helps me to do lab')
+parser = argparse.ArgumentParser(description='It helps me to do lab')
 parser.add_argument('--f')
 args = parser.parse_args()
 name_file = args.f
 
-if name_file == None:
+if name_file is None:
     without_file()
-else: with_file()
+else:
+    with_file()
 
 print('Work is over, thanks for watching :)')
-
