@@ -1,4 +1,5 @@
 import math
+import argparse
 
 def sqrtSum(a,left, right):
     sqrt_len = math.ceil(len(a) ** 0.5)
@@ -26,6 +27,12 @@ def sqrtSum(a,left, right):
 #     for i in range(index1, index2):
 #         sum += a[i]
 #     return sum
+
+parser = argparse.ArgumentParser(description='It helps me to do lab')
+parser.add_argument('--f')
+args = parser.parse_args()
+name_file = args.f
+print(type(name_file))
 
 print('To stop array print STOP.')
 print("Enter array:")
