@@ -1,3 +1,16 @@
+#Работа Корбовского Никиты Андреевича
+#        karbovskiyma@gmail.com
+#1)чтобы программа отработала в интерактивном режиме
+#  следует ее поросто выполнить
+#2) чтобы программа отработала в режиме работы 
+#   с файлом нужно: в командной стороке добавить 
+#   аргумент --f ИМЯ ФАЙЛА 
+#   пример файла привиден на GitHub
+#   под названием 12_lab_2_1_file.txt
+#   структура файла проста: 
+#   1-ая сторока - массив
+#   остальные - границы
+#   также предусмотрен контроль ввода границ 
 import math
 import argparse
 
@@ -73,13 +86,6 @@ def with_file():
             print("Elemet sum:", sqrtSum(a,b[0],b[1]))
         else: print("Sorry but it's wrong!")    
     file.close()
-
-
-# def elementSum(index1, index2):
-#     sum = 0
-#     for i in range(index1, index2):
-#         sum += a[i]
-#     return sum
 
 parser = argparse.ArgumentParser(description = 'It helps me to do lab')
 parser.add_argument('--f')
