@@ -3,28 +3,46 @@ print(a)
 
 
 def flatten_it(a):
-	type_a = type(a)
-	for i in range(len(a)):
-		if type(a[i]) is type_a:
-			b = a[i]
-			del a[i]
-			for k in range(len(b)):
-				a.insert(i+k, b[k])
-		count = 0
-		for i in range(len(a)):
-			if type(a[i]) is not type_a:
-				count += 1
-		if count == len(a):
-			return a
-	print(a)
-	return flatten_it(a)
+    type_a = type(a)
+    for i in range(len(a)):
+        if type(a[i]) is type_a:
+            b = a[i]
+            del a[i]
+            for k in range(len(b)):
+                a.insert(i+k, b[k])
+        count = 0
+        for i in range(len(a)):
+            if type(a[i]) is not type_a:
+                count += 1
+        if count == len(a):
+            return a
+    return flatten_it(a)
+# print(flatten_it(a))
 
-print(flatten_it(a))
+b = (12,3123,123,(123,123,123,123),12,31,3,(123,(31231,12312)))
+
+
+def func(b):
+    y = []
+    y = list(b).copy()
+    print(y)
+    type_b = type(b)
+    print(type_b)
+    
+    for i in range(len(y)):
+        if type(y[i]) is type_b:
+            z = list(y[i])
+            print(z)
+            del y[i]
+            for k in range(len(z)):
+                    y.insert(i+k, z[i])
+
+print(y)
 
 # type_a = type(a)
 # for i in range(len(a)):
-# 	if type(a[i]) is type_a:
-# 		b = a[i]
-# 		for k in range(len(b)):
-# 			a.insert(i+k, b[k])
+#   if type(a[i]) is type_a:
+#       b = a[i]
+#       for k in range(len(b)):
+#           a.insert(i+k, b[k])
 # print(a)
