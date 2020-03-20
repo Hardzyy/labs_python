@@ -28,16 +28,25 @@ def func(b):
     print(y)
     type_b = type(b)
     print(type_b)
-    
+
     for i in range(len(y)):
         if type(y[i]) is type_b:
             z = list(y[i])
             print(z)
             del y[i]
             for k in range(len(z)):
-                    y.insert(i+k, z[i])
-
-print(y)
+                y.insert(i+k, z[i])
+        count = 0
+        for i in range(len(y)):
+            if type(y[i]) is not type_b:
+                count += 1
+        print(count)
+        print(len(y))
+        if count == len(y):
+            return y
+    return func(y)
+    
+print(func(b))
 
 # type_a = type(a)
 # for i in range(len(a)):
