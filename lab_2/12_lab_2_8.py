@@ -1,13 +1,12 @@
 def exp_test(num):
     exponent = 0
+    if num == 1:
+        return 0
     while num:
-        if num == 1 or num == -1:
+        if num == 1:
             break
         if num % 2 == 0:
-            if num > 0:
-                exponent += 1
-            else:
-                exponent -= 1            
+            exponent += 1
             num /= 2
         else: 
             exponent = 0
@@ -15,6 +14,7 @@ def exp_test(num):
     if exponent != 0:
         return exponent
     else: 
-        return "undefinite"
+        return "indefinite"
 
-print("Exponent is", exp_test(-16))
+for i in range(20):
+    print("For", i, "exponent is", exp_test(i))
