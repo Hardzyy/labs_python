@@ -9,7 +9,7 @@ for i in range(k[0],k[1]):
 
 b = (3, 10)
 bb = []
-for i in range(b[0],b[1]):
+for i in range(b[0],b[1]+1):
     bb.append(i)
     
 file = open("12_lab_2_2_output.txt", "w")
