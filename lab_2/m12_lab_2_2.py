@@ -1,4 +1,6 @@
 import random
+import time
+import progressbar
 
 k = (10, 100)
 kk = []
@@ -10,7 +12,7 @@ bb = []
 for i in range(b[0],b[1]):
     bb.append(i)
     
-file = open("12_lab_2_2_output.txt", "w" )
+file = open("12_lab_2_2_output.txt", "w")
 
 alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 print('Enter size')
@@ -21,11 +23,17 @@ spaces = 0
 x = 0
 str_help = 0
 
+bar = progressbar.ProgressBar(maxval=1024**2 * n, widgets=[
+    'Working...: ',
+    progressbar.Bar(left='[', marker='|', right=']'),
+    progressbar.SimpleProgress(),
+]).start()
+
 while x <= 1024**2 * n:
     if x != 0 and spaces !=0 and (spaces % (string_len) == 0):
         spaces = 0 
         file.write('\n')
-        x += 1
+        x += 2
         string_len = random.choice(kk)
     file.write(random.choice(alphabet))
     str_help += 1
@@ -35,7 +43,8 @@ while x <= 1024**2 * n:
         x += 1
         length = random.choice(bb)
         str_help = 0
-    x += 1  
+    x += 1
+    bar.update(x)
 
+bar.finish()
 file.close()
-
