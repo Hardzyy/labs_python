@@ -4,17 +4,33 @@ import argparse
 
 class GenerateFile: 
 
+
+    def check_tuple(value):
+        print(value)
+        ivalue = int(value)
+        if ivalue <= 0:
+            raise argparse.ArgumentTypeError("%s is an invalid positive int value" % value)
+        return ivalue
+
+
+    def check_size(value):
+        fvalue = float(value)
+        if fvalue <= 0:
+            raise argparse.ArgumentTypeError("%s is an invalid positive float value" % value)
+        return fvalue
+
+
     parser = argparse.ArgumentParser(description='Interactive input')
     parser.add_argument(
         '-n',
         default = 0.1,
-        type = float,
+        type = check_size,
         help = 'Size of a file(default: 0.1Mb)'
     )
     parser.add_argument(
         '--k',
         nargs='+',
-        type = int,
+        type = check_tuple,
         default = (10, 100),
         help = 'Amount of words in a string(default: (10, 100))'
     )
@@ -22,7 +38,7 @@ class GenerateFile:
     parser.add_argument(
         '--l',
         nargs='+',
-        type = int,
+        type = check_tuple,
         default = (3, 10),
         help = 'Length of a word(default: (3, 10))'
     )
@@ -49,7 +65,7 @@ class GenerateFile:
     x = 0
     str_help = 0
 
-    bar = progressbar.ProgressBar(maxval=int(1024**2 * n), widgets=[
+    bar = progressbar.ProgressBar(maxval=int(1024**2 * n + 5), widgets=[
         'Working...: ',
         progressbar.Bar(left='[', marker='|', right=']'),
        progressbar.SimpleProgress(),
@@ -74,5 +90,3 @@ class GenerateFile:
 
     bar.finish()
     file.close()
-    
-GenerateFile()
