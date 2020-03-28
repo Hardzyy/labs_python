@@ -73,21 +73,21 @@ class GenerateFile:
     x = 0
     str_help = 0
 
-    bar = progressbar.ProgressBar(maxval=int(1024**2 * n + 5), widgets=[
+    bar = progressbar.ProgressBar(maxval=int(1024**2 * n + 1), widgets=[
         'Working...: ',
-        progressbar.Bar(left='[', marker='|', right=']'),
-       progressbar.SimpleProgress(),
+        progressbar.Bar(left='[', marker='*', right=']'),
+       progressbar.Percentage(),
     ]).start()
 
 
-    while x <= int(1024**2 * n):
+    while x <= int(1024**2 * n - 1):
         if x != 0 and spaces !=0 and (spaces % (string_len) == 0):
             spaces = 0 
             file.write('\n')
             x += 2
             string_len = random.choice(kk)
         file.write(random.choice(alphabet))
-        
+        x += 1        
         str_help += 1
         if str_help % length == 0:
             spaces += 1
