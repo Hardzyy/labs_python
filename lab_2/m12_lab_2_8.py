@@ -1,3 +1,5 @@
+import argparse
+
 def exp_test(num):
     exponent = 0
     if num == 1:
@@ -14,7 +16,39 @@ def exp_test(num):
     if exponent != 0:
         return exponent
     else: 
-        return "indefinite"
+        return "not INTEGER"
 
-for i in range(20):
-    print("For", i, "exponent is", exp_test(i))
+def check_value(value):
+        ivalue = int(value)
+        if ivalue <= 0:
+            raise argparse.ArgumentTypeError("%s is an invalid positive int value" % value)
+        return ivalue
+
+def without_arg():
+    print("Enter INTEGER POSITIVE numbers one after one.")
+    print("If you want stop print STOP.")
+    while True:
+        test_stop = input()
+        if test_stop == 'stop' or test_stop == 'STOP':
+            print("Work is over")
+            break
+        try:
+            num = int(test_stop)
+            print("Integer exponent of 2 for", num, "is", exp_test(num))
+        except:
+            print("Number is wrong, please try again")
+
+
+parser = argparse.ArgumentParser(description='Created to get arguments from cmd')
+parser.add_argument(
+    '--num',
+    type = check_value,
+    help = 'Enter a number to check')
+
+args = parser.parse_args()
+number = args.num
+
+if number is None:
+    without_arg()
+else: 
+    print("Integer exponent of 2 is for", number, "is", exp_test(number))
