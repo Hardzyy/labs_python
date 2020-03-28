@@ -1,5 +1,21 @@
 import argparse
 
+
+def without_arg():
+    print("Enter INTEGER POSITIVE numbers one after one.")
+    print("If you want stop print STOP.")
+    while True:
+        test_stop = input()
+        if test_stop == 'stop' or test_stop == 'STOP':
+            print("Work is over.")
+            break
+        try:
+            num = int(test_stop)
+            print("Leonardo number for", num, "is", leonardo_num(num))
+        except:
+            print("Number is wrong, please try again")
+
+
 def check_value(value):
         ivalue = int(value)
         if ivalue < 0:
@@ -26,6 +42,6 @@ args = parser.parse_args()
 number = args.num
 
 if number is None:
-	pass
+	without_arg()	
 else: 
 	print('Leonardo number for', number, 'is', leonardo_num(number))

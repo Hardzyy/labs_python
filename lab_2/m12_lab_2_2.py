@@ -5,8 +5,14 @@ import argparse
 class GenerateFile: 
 
 
+    def check_dimension(array):
+        if len(array) != 2:
+            print("Wrong tuple")
+            print("Program is ended")
+            quit()
+
+
     def check_tuple(value):
-        print(value)
         ivalue = int(value)
         if ivalue <= 0:
             raise argparse.ArgumentTypeError("%s is an invalid positive int value" % value)
@@ -48,11 +54,13 @@ class GenerateFile:
     kk = []
     for i in range(k[0],k[1]+1):
         kk.append(i)
+    check_dimension(k)
 
     l = tuple(args.l)
     ll = []
     for i in range(l[0],l[1]+1):
         ll.append(i)
+    check_dimension(l)
     
     file = open("12_lab_2_2_output.txt", "w")
 
@@ -71,6 +79,7 @@ class GenerateFile:
        progressbar.SimpleProgress(),
     ]).start()
 
+
     while x <= int(1024**2 * n):
         if x != 0 and spaces !=0 and (spaces % (string_len) == 0):
             spaces = 0 
@@ -78,6 +87,7 @@ class GenerateFile:
             x += 2
             string_len = random.choice(kk)
         file.write(random.choice(alphabet))
+        
         str_help += 1
         if str_help % length == 0:
             spaces += 1
@@ -85,8 +95,7 @@ class GenerateFile:
             x += 1
             length = random.choice(ll)
             str_help = 0
-        x += 1
         bar.update(x)
 
     bar.finish()
-    file.close()
+    file.close() 

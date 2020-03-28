@@ -30,7 +30,7 @@ def without_arg():
     while True:
         test_stop = input()
         if test_stop == 'stop' or test_stop == 'STOP':
-            print("Work is over")
+            print("Work is over.")
             break
         try:
             num = int(test_stop)
