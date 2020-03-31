@@ -82,7 +82,7 @@ bar = progressbar.ProgressBar(maxval=int(1024**2 * n + 1), widgets=[
 
 start_time = time.time()
 
-while x <= int(1024**2 * n - 1):
+while x < int(1024**2 * n):
     if x != 0 and spaces != 0 and (spaces % (string_len) == 0):
         spaces = 0
         file.write('\n')
