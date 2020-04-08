@@ -63,7 +63,7 @@ for i in range(l[0], l[1]+1):
     ll.append(i)
 check_dimension(l)
 
-file = open("12_lab_2_2_output.txt", "w")
+file = open("output.txt", "w")
 
 alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
