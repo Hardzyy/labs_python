@@ -52,15 +52,15 @@ parser.add_argument(
 
 args = parser.parse_args()
 k = tuple(args.k)
-kk = []
+rand_for_str = []
 for i in range(k[0], k[1]+1):
-    kk.append(i)
+    rand_for_str.append(i)
 check_dimension(k)
 
 l = tuple(args.l)
-ll = []
+rand_for_word = []
 for i in range(l[0], l[1]+1):
-    ll.append(i)
+    rand_for_word.append(i)
 check_dimension(l)
 
 file = open("output.txt", "w")
@@ -68,8 +68,8 @@ file = open("output.txt", "w")
 alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 n = args.n
-length = random.choice(ll)
-string_len = random.choice(kk)
+length = random.choice(rand_for_word)
+string_len = random.choice(rand_for_str)
 spaces = 0
 x = 0
 str_help = 0
@@ -87,7 +87,7 @@ while x < int(1024**2 * n):
         spaces = 0
         file.write('\n')
         x += 2
-        string_len = random.choice(kk)
+        string_len = random.choice(rand_for_str)
     file.write(random.choice(alphabet))
     x += 1
     str_help += 1
@@ -95,7 +95,7 @@ while x < int(1024**2 * n):
         spaces += 1
         file.write(' ')
         x += 1
-        length = random.choice(ll)
+        length = random.choice(rand_for_word)
         str_help = 0
     bar.update(x)
 
