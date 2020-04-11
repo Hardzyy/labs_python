@@ -32,17 +32,22 @@ def leonardo_num(n):
     leo = (2 / 5**0.5) * (fi**(n+1) - phi**(n-1)) - 1
     return round(leo)
 
-parser = argparse.ArgumentParser(description="Created to gets args from cmd")
-parser.add_argument(
-    '--num',
-    type=check_value,
-    help='Enter a number to calculate Leonardo'
-    )
+def main():
+    parser = argparse.ArgumentParser(description="Created to gets args from cmd")
+    parser.add_argument(
+        '--num',
+        type=check_value,
+        help='Enter a number to calculate Leonardo number.'
+        )
 
-args = parser.parse_args()
-number = args.num
+    args = parser.parse_args()
+    number = args.num
 
-if number is None:
-    without_arg()
-else:
-    print('Leonardo number for', number, 'is', leonardo_num(number))
+    if number is None:
+        without_arg()
+    else:
+        print('Leonardo number for', number, 'is', leonardo_num(number))
+
+
+if __name__ == "__main__":
+    main()
