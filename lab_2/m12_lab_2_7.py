@@ -32,8 +32,10 @@ def leonardo_num(n):
     leo = (2 / 5**0.5) * (fi**(n+1) - phi**(n-1)) - 1
     return round(leo)
 
+
 def main():
-    parser = argparse.ArgumentParser(description="Created to gets args from cmd")
+    parser = argparse.ArgumentParser(description="Created to get "
+                                     "args from cmd")
     parser.add_argument(
         '--num',
         type=check_value,
