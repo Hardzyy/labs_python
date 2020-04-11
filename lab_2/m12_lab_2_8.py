@@ -43,17 +43,22 @@ def without_arg():
             print("Number is wrong, please try again")
 
 
-parser = argparse.ArgumentParser(description='Created'
+def main():
+    parser = argparse.ArgumentParser(description='Created'
                                  'to get arguments from cmd')
-parser.add_argument(
-    '--num',
-    type=check_value,
-    help='Enter a number to check')
+    parser.add_argument(
+        '--num',
+        type=check_value,
+        help='Enter a number to check the exp of 2.')
 
-args = parser.parse_args()
-number = args.num
+    args = parser.parse_args()
+    number = args.num
 
-if number is None:
-    without_arg()
-else:
-    print("Integer exponent of 2 for", number, "is", exp_test(number))
+    if number is None:
+        without_arg()
+    else:
+        print("Integer exponent of 2 for", number, "is", exp_test(number))
+
+
+if __name__ = "__main__":
+    main()
