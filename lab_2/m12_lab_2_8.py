@@ -23,7 +23,7 @@ def exp_test(num):
 def check_value(value):
         ivalue = int(value)
         if ivalue <= 0:
-            raise argparse.ArgumentTypeError("%s is an invalid"
+            raise argparse.ArgumentTypeError("%s is an invalid "
                                              "positive int value" % value)
         return ivalue
 
@@ -45,7 +45,7 @@ def without_arg():
 
 def main():
     parser = argparse.ArgumentParser(description='Created'
-                                 'to get arguments from cmd')
+                                     'to get arguments from cmd')
     parser.add_argument(
         '--num',
         type=check_value,
@@ -60,5 +60,5 @@ def main():
         print("Integer exponent of 2 for", number, "is", exp_test(number))
 
 
-if __name__ = "__main__":
+if __name__ == "__main__":
     main()
