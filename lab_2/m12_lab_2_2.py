@@ -50,6 +50,11 @@ def main():
         default=(3, 10),
         help='Length of a word(default: (3, 10))'
     )
+    parser.add_argument(
+        '--name',
+        default='output',
+        help='Give a name to output file.'
+    )
 
     args = parser.parse_args()
     k = tuple(args.k)
@@ -64,7 +69,9 @@ def main():
         rand_for_word.append(i)
     checkDimension(l)
 
-    file = open("output.txt", "w")
+    file_name = args.name
+
+    file = open(file_name+".txt", "w")
 
     alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
