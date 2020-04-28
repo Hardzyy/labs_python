@@ -1,14 +1,48 @@
+import os
+import time
+import random
 import argparse
+import datetime
+import progressbar
 
 
-def check_dimension(array):
+def createFile(file_name, n, rand_for_word, rand_for_str):
+    file = open(file_name +'.txt', 'w')
+
+    alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+    length = random.choice(rand_for_word)
+    string_len = random.choice(rand_for_str)
+    spaces = 0
+    size_in_bytes = 0
+    str_help = 0
+
+    while size_in_bytes < int(1024**2 * n) - 1:
+        if size_in_bytes != 0 and spaces != 0 and (spaces % (string_len) == 0):
+            spaces = 0
+            file.write('\n')
+            size_in_bytes += 2
+            string_len = random.choice(rand_for_str)
+        file.write(random.choice(alphabet))
+        size_in_bytes += 1
+        str_help += 1
+        if str_help % length == 0:
+            spaces += 1
+            file.write(' ')
+            size_in_bytes += 1
+            length = random.choice(rand_for_word)
+            str_help = 0
+    file.close()
+
+
+def checkDimension(array):
     if len(array) != 2:
         print("Wrong tuple")
         print("Program is ended")
         quit()
 
 
-def check_tuple(value):
+def checkTuple(value):
     ivalue = int(value)
     if ivalue <= 0:
         raise argparse.ArgumentTypeError("%s is an invalid"
@@ -16,7 +50,7 @@ def check_tuple(value):
     return ivalue
 
 
-def check_size(value):
+def checkSize(value):
     fvalue = float(value)
     if fvalue <= 0:
         raise argparse.ArgumentTypeError("%s is an invalid"
@@ -74,6 +108,7 @@ def mergeWord(left, right):
  
     return result
  
+
 def mergesortWord(list):
     if len(list) < 2:
         return list
@@ -85,64 +120,86 @@ def mergesortWord(list):
     return mergeWord(left, right)
 
 
-parser = argparse.ArgumentParser(description='Argument parser for lab')
-parser.add_argument(
-    '--cr',
-    default='file',
-    help='Write here FILE NAME if you wanna create sorted file.'
+def main():
+    parser = argparse.ArgumentParser(description='Argument parser for lab')
+    parser.add_argument(
+        '--cr',
+        help='Write here FILE NAME if you wanna create sorted file.' +
+            '\n' + 'When you use it look for N,K,L argumnts.'
+        )
+    parser.add_argument(
+        '--sort',
+        help='Name of a file wich will be sorted.'
+        )
+    parser.add_argument(
+        '-n',
+        default=1,
+        type=checkSize,
+        help='Size of a file(default: 1Mb)'
     )
-parser.add_argument(
-    '--sort',
-    help='Name of a file wich will be sorted.'
+    parser.add_argument(
+        '--k',
+        nargs='+',
+        type=checkTuple,
+        default=(10, 100),
+        help='Amount of words in a string(default: (10, 100))'
     )
-parser.add_argument(
-    '-n',
-    default=1,
-    type=check_size,
-    help='Size of a file(default: 1Mb)'
-)
-parser.add_argument(
-    '--k',
-    nargs='+',
-    type=check_tuple,
-    default=(10, 100),
-    help='Amount of words in a string(default: (10, 100))'
-)
-parser.add_argument(
-    '--l',
-    nargs='+',
-    type=check_tuple,
-    default=(3, 10),
-    help='Length of a word(default: (3, 10))'
-)
+    parser.add_argument(
+        '--l',
+        nargs='+',
+        type=checkTuple,
+        default=(3, 10),
+        help='Length of a word(default: (3, 10))'
+    )
 
-args = parser.parse_args()
+    args = parser.parse_args()
 
-k = tuple(args.k)
-kk = []
-for i in range(k[0], k[1]+1):
-    kk.append(i)
-check_dimension(k)
+    name_sort = args.sort
+    n = args.n
+    create = args.cr
+    k = tuple(args.k)
+    rand_for_str = []
+    for i in range(k[0], k[1]+1):
+        rand_for_str.append(i)
+    checkDimension(k)
 
-l = tuple(args.l)
-ll = []
-for i in range(l[0], l[1]+1):
-    ll.append(i)
-check_dimension(l)
-create = args.cr
-if create is not None:
+    l = tuple(args.l)
+    rand_for_word = []
+    for i in range(l[0], l[1]+1):
+        rand_for_word.append(i)
+    checkDimension(l)
 
+    if create is not None:
+        createFile(create, n, rand_for_word, rand_for_str)
 
-    file = open('output.txt', 'r')
-    ff = file.read().split('\n')
-    file.close()
-    sorted_ff = mergesortStr(ff)
+        file = open(create+'.txt', 'r')
+        ff = file.read().split('\n')
+        file.close()
+        sorted_ff = mergesortStr(ff)
 
-    ffe = open(create+'.txt', 'w')
-    for i in range(len(sorted_ff)):
-        merge_and_split = mergesortWord(sorted_ff[i].split(' '))
-        string_done =  ' '.join(elem for elem in merge_and_split)
-        ffe.write(sorted_ff[i])
-        if i < len(sorted_ff) - 1:
-            ffe.write('\n')
-    ffe.close()
+        ffe = open(create+'.txt', 'w')
+        for i in range(len(sorted_ff)):
+            merge_and_split = mergesortWord(sorted_ff[i].split())
+            merge_and_split.append('')
+            string_done =  ' '.join(elem for elem in merge_and_split)
+            ffe.write(string_done)
+            if i < len(sorted_ff) - 1:
+                ffe.write('\n')
+        ffe.close()
+
+    if name_sort is not None:
+        file = open(name_sort+'.txt', 'r')
+        ff = file.read().split('\n')
+        file.close()
+        sorted_ff = mergesortStr(ff)
+
+        ffe = open(name_sort+'_sorted'+'.txt', 'w')
+
+        for i in range(len(sorted_ff)):
+            ffe.write(sorted_ff[i])
+            if i < len(sorted_ff) - 1:
+                ffe.write('\n')
+        ffe.close()
+
+if __name__ == "__main__":
+    main()
