@@ -72,20 +72,6 @@ def recurison(name_arr):
         return namespace
 
 
-def recursion_merge(sorted_namespace):
-    if len(sorted_namespace) == 1:
-        return sorted_namespace
-    else:
-        total_name = []
-        arange = range(len(sorted_namespace))[::2]
-        merged_space =[]
-        for i in arange:
-            merged_space.append(merge_files(sorted_namespace[i], sorted_namespace[i+1]))
-        for i in range(len(sorted_namespace)):
-            os.remove(sorted_namespace[i]+'.txt')
-        return recursion_merge(merged_space)
-
-
 def merge_files(file_name1, file_name2):
     merged_file_name = create_file_name()+'_sorted'+'.txt'
     merged_file = open(merged_file_name,'w')
@@ -114,6 +100,20 @@ def merge_files(file_name1, file_name2):
     file1.close()
     file2.close()
     return merged_file_name[:-4]
+
+
+def recursion_merge(sorted_namespace):
+    if len(sorted_namespace) == 1:
+        return sorted_namespace
+    else:
+        total_name = []
+        arange = range(len(sorted_namespace))[::2]
+        merged_space =[]
+        for i in arange:
+            merged_space.append(merge_files(sorted_namespace[i], sorted_namespace[i+1]))
+        for i in range(len(sorted_namespace)):
+            os.remove(sorted_namespace[i]+'.txt')
+        return recursion_merge(merged_space)
 
 
 def mergeStr(left, right):
