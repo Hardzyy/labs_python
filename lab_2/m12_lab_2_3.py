@@ -118,6 +118,7 @@ def divide_file(file_name):
         for i in range(divided_count, count_file):
             file_2.write(file_origin.readline())
             bar.update(i)
+        bar.finish()
         file_2.close()
         file_origin.close()
         name_array = []
@@ -153,10 +154,16 @@ def sort_file(file_name):
     sorted_array_str = mergesortStr(array_str)
 
     sorted_file = open(file_name+'_sorted'+'.txt', 'w')
-
+    bar = progressbar.ProgressBar(maxval=int(len(sorted_array_str) + 1), widgets=[
+        'Sorting file...: ',
+        progressbar.Bar(left='[', marker='*', right=']'),
+        progressbar.Percentage(),
+    ]).start()
     for i in range(len(sorted_array_str)):
         sorted_file.write(sorted_array_str[i])
         sorted_file.write('\n')
+        bar.update(i)
+    bar.finish()
     sorted_file.close()
     os.remove(file_name+'.txt')
     return file_name+'_sorted'        
@@ -172,6 +179,11 @@ def merge_files(file_name1, file_name2):
     count1 = count(file_name1)
     count2 = count(file_name2)
     counter = 0
+    bar = progressbar.ProgressBar(maxval=int(count1 + count2 + 1), widgets=[
+        'Merging file...: ',
+        progressbar.Bar(left='[', marker='*', right=']'),
+        progressbar.Percentage(),
+    ]).start()
     while counter < count1 + count2:
         if str1 == '' and str2 != '':
             merged_file.write(str2)
@@ -186,6 +198,8 @@ def merge_files(file_name1, file_name2):
             merged_file.write(str2)
             str2 = file2.readline()
         counter  += 1
+        bar.update(counter)
+    bar.finish()
     merged_file.close()
     file1.close()
     file2.close()
@@ -347,6 +361,7 @@ def main():
         print("Total time complexity", (time.time() - start_time))
 
     if name_sort is not None:
+        start_time = time.time()
         new_namespace = recurison(divide_file(name_sort))
         if type(new_namespace) is str:
             sort_file(new_namespace)
@@ -355,6 +370,7 @@ def main():
             for i in range(len(new_namespace)):
                 sorted_namespace.append(sort_file(new_namespace[i]))
             recursion_merge(sorted_namespace)
+        print("Total time complexity", (time.time() - start_time))
 
 if __name__ == "__main__":
     main()
