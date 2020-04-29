@@ -6,8 +6,9 @@ import datetime
 import progressbar
 
 
+# функция создания неотсортированного файла из задания 2
 def createFile(file_name, n, rand_for_word, rand_for_str):
-    file = open(file_name +'.txt', 'w')
+    file = open(file_name+'.txt', 'w')
 
     alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
@@ -82,6 +83,7 @@ def create_file_name():
     return name
 
 
+# считаем кол-во строк в файле
 def count(file_name):
     f_name = file_name_check(file_name)
     file = open(f_name, 'r')
@@ -92,6 +94,7 @@ def count(file_name):
     return count
 
 
+# функция делит большые файлы на меньгие
 def divide_file(file_name):
     f_name = file_name_check(file_name)
     count_file = count(f_name[:-4])
@@ -100,7 +103,7 @@ def divide_file(file_name):
         progressbar.Bar(left='[', marker='*', right=']'),
         progressbar.Percentage(),
     ]).start()
-    file_size = (os.path.getsize(f_name)) / 1024**2 
+    file_size = (os.path.getsize(f_name)) / 1024**2
     if file_size > 200:
         divided_count = int(count_file/2)
         file_1name = create_file_name()
@@ -137,7 +140,6 @@ def recurison(name_arr):
     else:
         for i in range(len(name_arr)):
             new_name_arr.extend(divide_file(name_arr[i]))
-
     for i in range(len(name_arr)):
         os.remove(name_arr[i]+'.txt')
     namespace.extend(new_name_arr)
@@ -147,31 +149,35 @@ def recurison(name_arr):
         return namespace
 
 
+# функция для быстрой сортировки маленьких файлов
 def sort_file(file_name):
     file = open(file_name+'.txt', 'r')
     array_str = file.read().split('\n')
     file.close()
     sorted_array_str = mergesortStr(array_str)
-
+    length = len(sorted_array_str) + 1
     sorted_file = open(file_name+'_sorted'+'.txt', 'w')
-    bar = progressbar.ProgressBar(maxval=int(len(sorted_array_str) + 1), widgets=[
-        'Sorting file...: ',
-        progressbar.Bar(left='[', marker='*', right=']'),
-        progressbar.Percentage(),
-    ]).start()
-    for i in range(len(sorted_array_str)):
+    bar = progressbar.ProgressBar(maxval=length,
+                                  widgets=[
+                                  'Sorting file...: ',
+                                  progressbar.Bar(left=
+                                  '[', marker='*', right=']'),
+                                  progressbar.Percentage(),
+                                  ]).start()
+    for i in range(length-1):
         sorted_file.write(sorted_array_str[i])
         sorted_file.write('\n')
         bar.update(i)
     bar.finish()
     sorted_file.close()
     os.remove(file_name+'.txt')
-    return file_name+'_sorted'        
+    return file_name+'_sorted'
 
 
+# функция соединения маленьких отсортированных фалов
 def merge_files(file_name1, file_name2):
     merged_file_name = create_file_name()+'_sorted'+'.txt'
-    merged_file = open(merged_file_name,'w')
+    merged_file = open(merged_file_name, 'w')
     file1 = open(file_name1+'.txt', 'r')
     str1 = file1.readline()
     file2 = open(file_name2+'.txt', 'r')
@@ -197,7 +203,7 @@ def merge_files(file_name1, file_name2):
         else:
             merged_file.write(str2)
             str2 = file2.readline()
-        counter  += 1
+        counter += 1
         bar.update(counter)
     bar.finish()
     merged_file.close()
@@ -212,9 +218,10 @@ def recursion_merge(sorted_namespace):
     else:
         total_name = []
         arange = range(len(sorted_namespace))[::2]
-        merged_space =[]
+        merged_space = []
         for i in arange:
-            merged_space.append(merge_files(sorted_namespace[i], sorted_namespace[i+1]))
+            merged_space.append(merge_files(sorted_namespace[i],
+                                            sorted_namespace[i+1]))
         for i in range(len(sorted_namespace)):
             os.remove(sorted_namespace[i]+'.txt')
         return recursion_merge(merged_space)
@@ -223,61 +230,61 @@ def recursion_merge(sorted_namespace):
 def mergeStr(left, right):
     if not len(left) or not len(right):
         return left or right
- 
+
     result = []
     i, j = 0, 0
     while (len(result) < len(left) + len(right)):
         if len(left[i]) < len(right[j]):
             result.append(left[i])
-            i+= 1
+            i += 1
         else:
             result.append(right[j])
-            j+= 1
+            j += 1
         if i == len(left) or j == len(right):
             result.extend(left[i:] or right[j:])
             break
     return result
 
- 
+
 def mergesortStr(list):
     if len(list) < 2:
         return list
- 
+
     middle = int(len(list)/2)
     left = mergesortStr(list[:middle])
     right = mergesortStr(list[middle:])
- 
+
     return mergeStr(left, right)
 
 
 def mergeWord(left, right):
     if not len(left) or not len(right):
         return left or right
- 
+
     result = []
     i, j = 0, 0
     while (len(result) < len(left) + len(right)):
         if left[i] < right[j]:
             result.append(left[i])
-            i+= 1
+            i += 1
         else:
             result.append(right[j])
-            j+= 1
+            j += 1
         if i == len(left) or j == len(right):
             result.extend(left[i:] or right[j:])
             break
- 
+
     return result
- 
+
 
 def mergesortWord(list):
     if len(list) < 2:
         return list
- 
+
     middle = int(len(list)/2)
     left = mergesortWord(list[:middle])
     right = mergesortWord(list[middle:])
- 
+
     return mergeWord(left, right)
 
 
