@@ -304,42 +304,26 @@ def main():
     if create is not None:
         createFile(create, n, rand_for_word, rand_for_str)
 
-        # file = open(create+'.txt', 'r')
-        # ff = file.read().split('\n')
-        # file.close()
-        # sorted_ff = mergesortStr(ff)
-
-        # ffe = open(create+'.txt', 'w')
-        # for i in range(len(sorted_ff)):
-        #     merge_and_split = mergesortWord(sorted_ff[i].split())
-        #     merge_and_split.append('')
-        #     string_done =  ' '.join(elem for elem in merge_and_split)
-        #     ffe.write(string_done)
-        #     if i < len(sorted_ff) - 1:
-        #         ffe.write('\n')
-        # ffe.close()
-
         new_namespace = recurison(divide_file(create))
-        print(new_namespace)
-
-        sorted_namespace = []
         if type(new_namespace) is str:
-            sort_file(new_namespace)
+            sorted_file = sort_file(new_namespace)
         else:
+            sorted_namespace = []
             for i in range(len(new_namespace)):
                 sorted_namespace.append(sort_file(new_namespace[i]))
+            sorted_file = recursion_merge(sorted_namespace)
 
-        sorted_file = recursion_merge(sorted_namespace)
         sort = open(sorted_file+'.txt', 'r')
         file = open(create+'.txt', 'w')
-        arange = range(count(sorted_file))
+        counter = count(sorted_file)
+        arange = range(counter)
         for i in arange:
             line = sort.readline()
             sorted_line = mergesortWord(line.split())
             sorted_line.append('')
             string_done = ' '.join(elem for elem in sorted_line)
             file.write(string_done)
-            if i < arange - 1:
+            if i < counter - 1:
                 file.write('\n')
         file.close()
         sort.close()
@@ -348,12 +332,13 @@ def main():
 
     if name_sort is not None:
         new_namespace = recurison(divide_file(name_sort))
-
-        sorted_namespace = []
-        for i in range(len(new_namespace)):
-            sorted_namespace.append(sort_file(new_namespace[i]))
-
-        recursion_merge(sorted_namespace)
+        if type(new_namespace) is str:
+            sort_file(new_namespace)
+        else:
+            sorted_namespace = []
+            for i in range(len(new_namespace)):
+                sorted_namespace.append(sort_file(new_namespace[i]))
+            recursion_merge(sorted_namespace)
 
 if __name__ == "__main__":
     main()
