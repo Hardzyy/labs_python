@@ -16,6 +16,11 @@ def createFile(file_name, n, rand_for_word, rand_for_str):
     spaces = 0
     size_in_bytes = 0
     str_help = 0
+    bar = progressbar.ProgressBar(maxval=int(1024**2 * n + 1), widgets=[
+        'Creating file...: ',
+        progressbar.Bar(left='[', marker='*', right=']'),
+        progressbar.Percentage(),
+    ]).start()
 
     while size_in_bytes < int(1024**2 * n) - 1:
         if size_in_bytes != 0 and spaces != 0 and (spaces % (string_len) == 0):
@@ -32,6 +37,9 @@ def createFile(file_name, n, rand_for_word, rand_for_str):
             size_in_bytes += 1
             length = random.choice(rand_for_word)
             str_help = 0
+        bar.update(size_in_bytes)
+
+    bar.finish()
     file.close()
 
 
@@ -86,9 +94,14 @@ def count(file_name):
 
 def divide_file(file_name):
     f_name = file_name_check(file_name)
-    file_size = (os.path.getsize(f_name)) / 1024**2 
     count_file = count(f_name[:-4])
-    if file_size > 100:
+    bar = progressbar.ProgressBar(maxval=int(count_file + 1), widgets=[
+        'Dividing file...: ',
+        progressbar.Bar(left='[', marker='*', right=']'),
+        progressbar.Percentage(),
+    ]).start()
+    file_size = (os.path.getsize(f_name)) / 1024**2 
+    if file_size > 200:
         divided_count = int(count_file/2)
         file_1name = create_file_name()
         file_1 = open(file_1name+'.txt', 'w')
@@ -97,12 +110,14 @@ def divide_file(file_name):
             if i != divided_count - 1:
                 file_1.write(file_origin.readline())
             else:
-                file_1.write(file_origin.readline()[:-1])            
+                file_1.write(file_origin.readline()[:-1])
+            bar.update(i)
         file_1.close()
         file_2name = create_file_name()
         file_2 = open(file_2name+'.txt', 'w')
         for i in range(divided_count, count_file):
-            file_2.write(file_origin.readline())    
+            file_2.write(file_origin.readline())
+            bar.update(i)
         file_2.close()
         file_origin.close()
         name_array = []
@@ -125,7 +140,7 @@ def recurison(name_arr):
     for i in range(len(name_arr)):
         os.remove(name_arr[i]+'.txt')
     namespace.extend(new_name_arr)
-    if (os.path.getsize(new_name_arr[0]+'.txt')) / 1024**2 > 100:
+    if (os.path.getsize(new_name_arr[0]+'.txt')) / 1024**2 > 200:
         return recurison(new_name_arr)
     else:
         return namespace
@@ -302,6 +317,7 @@ def main():
     checkDimension(l)
 
     if create is not None:
+        start_time = time.time()
         createFile(create, n, rand_for_word, rand_for_str)
 
         new_namespace = recurison(divide_file(create))
@@ -328,7 +344,7 @@ def main():
         file.close()
         sort.close()
         os.remove(sorted_file+'.txt')
-
+        print("Total time complexity", (time.time() - start_time))
 
     if name_sort is not None:
         new_namespace = recurison(divide_file(name_sort))
