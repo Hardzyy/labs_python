@@ -158,12 +158,12 @@ def sort_file(file_name):
     length = len(sorted_array_str) + 1
     sorted_file = open(file_name+'_sorted'+'.txt', 'w')
     bar = progressbar.ProgressBar(maxval=length,
-                                  widgets=[
-                                  'Sorting file...: ',
-                                  progressbar.Bar(left=
-                                  '[', marker='*', right=']'),
-                                  progressbar.Percentage(),
-                                  ]).start()
+                                  widgets=['Sorting file...: ',
+                                           progressbar.Bar(left='[',
+                                                           marker='*',
+                                                           right=']'),
+                                           progressbar.Percentage(),
+                                           ]).start()
     for i in range(length-1):
         sorted_file.write(sorted_array_str[i])
         sorted_file.write('\n')
@@ -293,7 +293,7 @@ def main():
     parser.add_argument(
         '--cr',
         help='Write here FILE NAME if you wanna create sorted file.' +
-            '\n' + 'When you use it look for N,K,L argumnts.'
+             '\n' + 'When you use it look for N,K,L argumnts.'
         )
     parser.add_argument(
         '--sort',
