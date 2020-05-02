@@ -1,7 +1,21 @@
 import math 
 
-# def to_json(obj):
-#     if isinstance(obj, int):
+def to_json(obj):
+    if type(obj) is int:
+        return int_to_str(obj)
+    if type(obj) is float:
+        return float_to_str(obj)
+    if type(obj) in (list, tuple):
+        return list_to_str(obj)
+    if type(obj) is dict:
+        return dict_to_str(obj)
+    if type(obj) is bool:
+        return bool_to_str(obj)
+    if type(obj) is str:
+        return str_to_str(obj)
+    if type(obj) is type(None):
+        return none_to_str(obj)
+
 
 def int_to_str(integer):
     string = ''
@@ -24,6 +38,10 @@ def bool_to_str(bl):
         return 'false'
 
 
+def none_to_str(obj):
+    return 'null'
+
+
 def float_to_str(fl):
     return str(fl)
 
@@ -40,14 +58,19 @@ def list_to_str(li):
         if type(li[i]) is float:
             string += str(li[i]) + ', '
         if type(li[i]) is type(None):
-            string += "null" + ', '
+            string += none_to_str(obj) + ', '
         if type(li[i]) is bool:
             string += bool_to_str(li[i]) + ', '
     return '[' + string[:-2] + ']'
 
 
-def dict_to_str(di):
+# def dict_to_str(di):
 
 
-aa = [1,2.2,'ass', True, None, False, [1,1]]
-print(list_to_str(aa))
+thisdict =  {
+  None: None,
+  "model": "Mustang",
+  "year": 1964
+}
+
+print(thisdict)
