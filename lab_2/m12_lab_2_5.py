@@ -62,6 +62,8 @@ def list_to_str(li):
             string += none_to_str(obj) + ', '
         if type(li[i]) is bool:
             string += bool_to_str(li[i]) + ', '
+        if type(li[i]) is dict:
+            string += dict_to_str(li[i]) + ', '
     return '[' + string[:-2] + ']'
 
 
@@ -76,10 +78,22 @@ def dict_to_str(di):
     return '{' + string[:-2] + '}'
 
 
-thisdict =  {
-  None: None,
-  "model": "Mustang",
-  "year": 1964
-}
+def main():
+    parser = argparse.ArgumentParser(description='Argument parser for lab')
+    parser.add_argument(
+        '--file',
+        default='file.txt',
+        help='Enter a file name in witch to write a json string. With extension(file.txt)'
+        )
+    args = parser.parse_args()
 
-print(dict_to_str(thisdict))
+    file_name = args.file
+    file = open(file_name, 'w')
+    obj = 
+    file.write(to_json(obj))
+    file.write('\n')
+    file.close()
+
+
+if __name__ == '__main__':
+    main()
