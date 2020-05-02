@@ -293,7 +293,7 @@ def main():
     parser.add_argument(
         '--cr',
         help='Write here FILE NAME(without extention) if you wanna' +
-             'create sorted file.' +
+             ' create sorted file.' +
              '\n' + 'When you use it look for N,K,L argumnts.'
         )
     parser.add_argument(
