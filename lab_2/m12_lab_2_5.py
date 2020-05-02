@@ -1,4 +1,5 @@
-import math 
+import argparse
+
 
 def to_json(obj):
     if type(obj) is int:
@@ -28,7 +29,7 @@ def int_to_str(integer):
     return string
 
 def str_to_str(string):
-    return "\"" + string + "\""
+    return "\'" + string + "\'"
 
 
 def bool_to_str(bl):
@@ -64,7 +65,15 @@ def list_to_str(li):
     return '[' + string[:-2] + ']'
 
 
-# def dict_to_str(di):
+def dict_to_str(di):
+    string = ''
+    for key, value in di.items():
+        if type(key) in (str, int, float, type(None), bool):
+            string += to_json(key) + ': '
+        else:
+            raise ValueError
+        string += to_json(value) + ', '
+    return '{' + string[:-2] + '}'
 
 
 thisdict =  {
@@ -73,4 +82,4 @@ thisdict =  {
   "year": 1964
 }
 
-print(thisdict)
+print(dict_to_str(thisdict))
