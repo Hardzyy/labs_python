@@ -292,12 +292,13 @@ def main():
     parser = argparse.ArgumentParser(description='Argument parser for lab')
     parser.add_argument(
         '--cr',
-        help='Write here FILE NAME if you wanna create sorted file.' +
+        help='Write here FILE NAME(without extention) if you wanna' +
+             'create sorted file.' +
              '\n' + 'When you use it look for N,K,L argumnts.'
         )
     parser.add_argument(
         '--sort',
-        help='Name of a file wich will be sorted.'
+        help='Name of a file(without extention) wich will be sorted.'
         )
     parser.add_argument(
         '-n',
