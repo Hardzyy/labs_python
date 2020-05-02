@@ -80,7 +80,10 @@ def dict_to_str(di):
 
 
 def write_in_file(obj, file_name):
-    file = open(file_name, 'a')
+    try:
+        file = open(file_name, 'a')
+    except FileNotFoundError:
+        print('File isn\'t exist.')
     file.write(to_json(obj))
     file.write('\n')
     file.close()
