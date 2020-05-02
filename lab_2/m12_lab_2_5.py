@@ -15,18 +15,19 @@ def to_json(obj):
     if type(obj) is str:
         return str_to_str(obj)
     if type(obj) is type(None):
-        return none_to_str(obj)
+        return none_to_str()
 
 
 def int_to_str(integer):
     string = ''
     while True:
-        remainder = integer%10
+        remainder = integer % 10
         string = chr(ord('0')+remainder)+string
         integer //= 10
         if integer == 0:
             break
     return string
+
 
 def str_to_str(string):
     return "\'" + string + "\'"
@@ -39,7 +40,7 @@ def bool_to_str(bl):
         return 'false'
 
 
-def none_to_str(obj):
+def none_to_str():
     return 'null'
 
 
@@ -59,7 +60,7 @@ def list_to_str(li):
         if type(li[i]) is float:
             string += str(li[i]) + ', '
         if type(li[i]) is type(None):
-            string += none_to_str(obj) + ', '
+            string += none_to_str() + ', '
         if type(li[i]) is bool:
             string += bool_to_str(li[i]) + ', '
         if type(li[i]) is dict:
@@ -78,21 +79,27 @@ def dict_to_str(di):
     return '{' + string[:-2] + '}'
 
 
+def write_in_file(obj, file_name):
+    file = open(file_name, 'a')
+    file.write(to_json(obj))
+    file.write('\n')
+    file.close()
+
+
 def main():
     parser = argparse.ArgumentParser(description='Argument parser for lab')
     parser.add_argument(
         '--file',
         default='file.txt',
-        help='Enter a file name in witch to write a json string. With extension(file.txt)'
+        help='Enter a file name in wich to write a json string. ' +
+             'With extension(file.txt)'
         )
     args = parser.parse_args()
-
     file_name = args.file
-    file = open(file_name, 'w')
-    obj = 
-    file.write(to_json(obj))
-    file.write('\n')
-    file.close()
+    # тут можно изменить объект
+    obj = [{None: 'some', 1.1: True, False: True},
+           ['one', 'two', 3], None, 'goose']
+    write_in_file(obj, file_name)
 
 
 if __name__ == '__main__':
