@@ -1,3 +1,6 @@
+import argparse
+
+
 def json_to_object(string):
     string = string.strip()
     if string == 'null':
@@ -97,12 +100,42 @@ def json_to_list(obj):
 
 
 def json_to_dict(dic):
-    r = dic.find(':')
-    t = json_to_object(dic[r+1:-1])
-    fin_dict = {json_to_str(dic[1:r]): t}
-    return fin_dict
+    find = []
+    di = dic[1:-1]
+    for i in range(len(di)):
+        if di[i] == ':':
+            find.append(i)
+    es = []
+    for i in range(len(di)):
+        if di[i] == ',':
+            es.append(i)
+    keys_str = []
+    for i in range(len(find)):
+        if i == 0:
+            keys_str.append(di[0:find[i]])
+        else:
+            keys_str.append((di[es[i-1]:find[i]])[2:])
+    keys_obj = []
+    for i in range(len(keys_str)):
+        keys_obj.append(json_to_object(keys_str[i]))
+    es.append(len(di))
+    values_str = []
+    for i in range(len(es)):
+        values_str.append((di[find[i]:es[i]])[2:])
+    values = []
+    for i in range(len(values_str)):
+        values.append(json_to_object(values_str[i]))
+    dictionary = {}
+    for i in range(len(values)):
+        dictionary[keys_obj[i]] = values[i]
+    return dictionary
 
 
-d = 
 
-print(json_to_object(d))
+def main():
+    d = "[{null: 'some', ['one', 'two', 3]: true, false: true}, null, 'goose']"
+    dic = "{null: 'some', 1.1: true, false: true}"
+
+
+if __name__ == "__main__":
+    main()
