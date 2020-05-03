@@ -31,7 +31,7 @@ def json_to_int(obj):
         return result
     if obj[0] == '-' and obj[1:].isdigit():
         return json_to_int(obj[1:]) * (-1)
-    
+
 
 def json_to_str(obj):
     return obj[1:-1]
@@ -59,7 +59,7 @@ def json_to_list(obj):
                         array.append(test[x])
                     else:
                         right.append(test[x])
-        #------left---------------------------------------------
+# ------left---------------------------------------------
         left_final = []
         for i in range(len(left)):
             if left[i] != ['']:
@@ -71,16 +71,16 @@ def json_to_list(obj):
         for i in range(len(felt)):
             if felt[i] != '':
                 left_array.append(json_to_object(felt[i]))
-        #------left---------------------------------------------
-        #------center---------------------------------------------
+# ------left---------------------------------------------
+# ------center---------------------------------------------
         new_array = []
         new_array = array[0].split(', ')
         last_array = []
         for i in range(len(new_array)):
             if new_array[i] != '':
                 last_array.append(json_to_object(new_array[i]))
-        #------center---------------------------------------------
-        #------right---------------------------------------------
+# ------center---------------------------------------------
+# ------right---------------------------------------------
         end = []
         for i in range(len(right)):
             if right[i] != '':
@@ -89,14 +89,12 @@ def json_to_list(obj):
         for i in range(len(end)):
             if end[i] != '':
                 end_array.append(json_to_object(end[i]))
-        #------right---------------------------------------------
+# ------right---------------------------------------------
         result = []
         result.extend(left_array)
         result.append(last_array)
         result.extend(end_array)
         return result
-
-
 
 
 def json_to_dict(dic):
@@ -131,10 +129,23 @@ def json_to_dict(dic):
     return dictionary
 
 
-
 def main():
-    d = "[{null: 'some', ['one', 'two', 3]: true, false: true}, null, 'goose']"
+    parser = argparse.ArgumentParser(description="Added to work with files")
+    parser.add_argument(
+        "--file",
+        help="Write here a file name with extension to get json string."
+        )
+    args = parser.parse_args()
+    file_name = args.file
     dic = "{null: 'some', 1.1: true, false: true}"
+    arr = '[1, 2, 3, [1, 2, 3, 4], 1, 6]'
+    if file_name is None:
+        print('dictionary', json_to_object(dic))
+        print('Array', json_to_object(arr))
+    else:
+        file = open(file_name, 'r')
+        print(json_to_object(file.readline()))
+        file.close()
 
 
 if __name__ == "__main__":
